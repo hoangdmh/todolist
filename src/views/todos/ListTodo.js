@@ -1,22 +1,36 @@
 import React, { Component } from 'react'
-import listTask from '../../mocks/listTask';
 import TitleTask from '../../components/TitleTask';
 import AddTask from '../../components/AddTask';
+
+import listTask from '../../mocks/listTask';
 
 class ListTodo extends Component {
 
     state = {
-        listTask: listTask
+        // listTask: listTask
+        listTask
+    }
+
+    addNewTask = (task) => {
+        // console.log('Task nhan dc =>', task);
+        this.setState({
+            listTask: [...this.state.listTask, task]
+        })
     }
 
     render() {
+        // console.log('check state => ', this.state.listTask);
+        let { listTask } = this.state;
+
         return (
             <>
                 {/* TITLE : START */}
                 <TitleTask />
 
                 {/* ADD : TASK */}
-                <AddTask />
+                <AddTask
+                    addNewTask={this.addNewTask}
+                />
 
 
                 {/* LIST : START */}
