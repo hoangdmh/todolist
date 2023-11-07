@@ -22,6 +22,20 @@ class ListTodo extends Component {
         toast.success("Add Task Success!");
     }
 
+    handleDeleteTask = (taskId) => {
+        // console.log('handleDeleteTask', taskId);
+        let currentTask = this.state.listTask;
+        currentTask = currentTask.filter((item) => {
+            return item.id !== taskId
+        })
+
+        this.setState({
+            listTask: currentTask
+        })
+
+        toast.success("Delete Task Success!");
+    }
+
     render() {
         // console.log('check state => ', this.state.listTask);
         let { listTask } = this.state;
@@ -58,7 +72,10 @@ class ListTodo extends Component {
                                             <td>{item.task}</td>
                                             <td>
                                                 <button type="button" className="btn btn-warning me-2">Edit</button>
-                                                <button type="button" className="btn btn-danger">Delete</button>
+                                                <button
+                                                    onClick={() => this.handleDeleteTask(item.id)}
+                                                    type="button" className="btn btn-danger"
+                                                >Delete</button>
                                             </td>
                                         </tr>
                                     )
