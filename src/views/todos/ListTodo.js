@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import TitleTask from '../../components/TitleTask';
 import AddTask from '../../components/AddTask';
 
+import { toast } from 'react-toastify';
+
 import listTask from '../../mocks/listTask';
 
 class ListTodo extends Component {
@@ -16,6 +18,8 @@ class ListTodo extends Component {
         this.setState({
             listTask: [...this.state.listTask, task]
         })
+
+        toast.success("Add Task Success!");
     }
 
     render() {

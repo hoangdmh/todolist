@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { toast } from 'react-toastify';
 
 class AddTask extends Component {
     state = {
@@ -17,7 +18,7 @@ class AddTask extends Component {
 
     handleAddTask = () => {
         if (!this.state.taskAdd) {
-            alert('Vui lòng nhập task!');
+            toast.error("Missing task");
             return;
         }
 
