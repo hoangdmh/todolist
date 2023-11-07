@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import listTask from '../../mocks/listTask';
+import TitleTask from '../../components/TitleTask';
+import AddTask from '../../components/AddTask';
 
 class ListTodo extends Component {
 
@@ -11,23 +13,10 @@ class ListTodo extends Component {
         return (
             <>
                 {/* TITLE : START */}
-                <div className="page-header mb-5">
-                    <h1>Project 01 - ToDo List <small>ReactJs</small></h1>
-                    <hr className="my-4" />
-                </div>
+                <TitleTask />
 
                 {/* ADD : TASK */}
-                <div className="row">
-                    <div className="col-4">
-                        <form className="form-inline justify-content-between">
-                            <div className="form-group mb-2">
-                                <input type="text" className="form-control" placeholder="Task Name" />
-                            </div>
-
-                            <button type="button" className="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-                </div>
+                <AddTask />
 
 
                 {/* LIST : START */}
