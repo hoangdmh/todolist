@@ -10,7 +10,8 @@ class ListTodo extends Component {
 
     state = {
         // listTask: listTask
-        listTask
+        listTask,
+        currentTask: {}
     }
 
     addNewTask = (task) => {
@@ -36,9 +37,36 @@ class ListTodo extends Component {
         toast.success("Delete Task Success!");
     }
 
+    handleEditTodo = (todo) => {
+        // console.log('handleEditTodo', todo);
+        let { listTask, currentTask } = this.state;
+        let isEmptyObj = Object.keys(todo).length === 0;
+
+        //Save
+        if (isEmptyObj === false && todo.id === currentTask.id) {
+            let listTaskCopy = [...listTask]
+            let objIndex = listTaskCopy.findIndex((obj => obj.id === todo.id));
+
+            listTaskCopy[objIndex].task = todo.task;
+
+            this.setState({
+                listTask: listTaskCopy,
+                currentTask: {}
+            })
+
+            toast.success("Update Task Success!");
+            return;
+        }
+
+        //Edit
+        this.setState({
+            currentTask: todo
+        })
+    }
+
     render() {
         // console.log('check state => ', this.state.listTask);
-        let { listTask } = this.state;
+        let { listTask, currentTask } = this.state;
 
         return (
             <>
@@ -48,6 +76,8 @@ class ListTodo extends Component {
                 {/* ADD : TASK */}
                 <AddTask
                     addNewTask={this.addNewTask}
+                    currentTask={currentTask}
+                    handleEditTodo={this.handleEditTodo}
                 />
 
 
@@ -71,7 +101,10 @@ class ListTodo extends Component {
                                             <td className="text-center">{index + 1}</td>
                                             <td>{item.task}</td>
                                             <td>
-                                                <button type="button" className="btn btn-warning me-2">Edit</button>
+                                                <button
+                                                    onClick={() => this.handleEditTodo(item)}
+                                                    type="button" className="btn btn-warning me-2"
+                                                >Edit</button>
                                                 <button
                                                     onClick={() => this.handleDeleteTask(item.id)}
                                                     type="button" className="btn btn-danger"
