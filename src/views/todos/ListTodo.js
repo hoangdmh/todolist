@@ -10,7 +10,7 @@ class ListTodo extends Component {
 
     state = {
         // listTask: listTask
-        listTask,
+        listTask: [],
         currentTask: {}
     }
 
@@ -62,6 +62,25 @@ class ListTodo extends Component {
         this.setState({
             currentTask: todo
         })
+    }
+
+    componentDidMount() {
+        let tasks = localStorage.getItem('tasks');
+        // console.log('tasks', tasks);
+        if (tasks !== null) {
+            this.setState({
+                listTask: JSON.parse(tasks)
+            })
+        } else {
+            this.setState({
+                listTask: []
+            })
+        }
+    }
+
+    componentDidUpdate() {
+        let tasksString = JSON.stringify(this.state.listTask);
+        localStorage.setItem('tasks', tasksString);
     }
 
     render() {
