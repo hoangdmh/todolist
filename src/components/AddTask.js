@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { toast } from 'react-toastify';
+import { v4 as uuid } from "uuid";
 
 class AddTask extends Component {
     state = {
@@ -24,7 +25,7 @@ class AddTask extends Component {
         }
 
         let data = {
-            id: Math.floor(Math.random() * 100),
+            id: uuid(),
             task: this.state.taskAdd
         }
         // console.log('handleAddTask', data);
