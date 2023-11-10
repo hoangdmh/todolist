@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import axiosInstance from '../../plugins/axios'
 import { withRouter } from "react-router";
+import Loading from '../Loading/Loading';
 
 class ListUser extends Component {
     state = {
-        listUser: []
+        listUser: [],
+        isLoading: false,
     }
 
     componentDidMount() {
@@ -13,8 +15,15 @@ class ListUser extends Component {
 
     getListUser = async () => {
         //console.log('getListUser');
+        this.setState({
+            isLoading: true
+        })
+
         try {
             var result = await axiosInstance.get(`/users?page=1`);
+            this.setState({
+                isLoading: false
+            })
             // console.log('result =>', result.data);
 
             if (result.data && result.status === 200) {
@@ -24,6 +33,9 @@ class ListUser extends Component {
             }
 
         } catch (error) {
+            this.setState({
+                isLoading: false
+            })
             return {
                 ok: false,
                 // error: error.message
@@ -38,7 +50,7 @@ class ListUser extends Component {
     }
 
     render() {
-        let { listUser } = this.state;
+        let { listUser, isLoading } = this.state;
         return (
             <>
                 <div className="table-responsive">
@@ -73,6 +85,7 @@ class ListUser extends Component {
                         </tbody>
                     </table>
                 </div>
+                <Loading isLoading={isLoading} />
             </>
         )
     }

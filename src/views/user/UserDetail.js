@@ -1,16 +1,25 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router";
 import axiosInstance from '../../plugins/axios'
+import Loading from '../Loading/Loading';
 
 class UserDetail extends Component {
     state = {
-        user: {}
+        user: {},
+        isLoading: false,
     }
 
     async componentDidMount() {
+        this.setState({
+            isLoading: true
+        })
         let id = this.props.match.params.id;
+
         try {
             var result = await axiosInstance.get(`/users/${id}`);
+            this.setState({
+                isLoading: false
+            })
             // console.log('result =>', result);
 
             if (result.data && result.status === 200) {
@@ -21,6 +30,9 @@ class UserDetail extends Component {
             }
 
         } catch (error) {
+            this.setState({
+                isLoading: false
+            })
             return {
                 ok: false,
                 // error: error.message
@@ -29,7 +41,7 @@ class UserDetail extends Component {
     }
 
     render() {
-        let { user } = this.state;
+        let { user, isLoading } = this.state;
         let isEmptyObj = Object.keys(user).length === 0;
         // console.log(isEmptyObj);
         return (
@@ -43,6 +55,7 @@ class UserDetail extends Component {
                         </div>
                     </div>
                 }
+                <Loading isLoading={isLoading} />
             </>
         )
     }
