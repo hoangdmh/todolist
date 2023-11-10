@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import Color from './HOC/Color'
+
 class About extends Component {
     render() {
         return (
@@ -10,4 +12,4 @@ class About extends Component {
     }
 }
 
-export default About 
+export default Color(About) 
